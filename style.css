@@ -1,0 +1,310 @@
+/* ============================================================
+   UnspokenArchive — Stylesheet
+   Palette: #050505 bg · #e0bd3a gold · #f5f5f0 ink
+   Fonts: Playfair Display (headings) · Lora (body) · Inter (UI)
+   ============================================================ */
+
+:root {
+  --gold: #e0bd3a;
+  --bg: #050505;
+  --surface: #0f0f0f;
+  --ink: #f5f5f0;
+  --muted: rgba(245,245,240,0.4);
+  --border: rgba(255,255,255,0.06);
+}
+
+/* ---- Base -------------------------------------------------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  font-family: 'Lora', serif;
+  background-color: var(--bg);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+.font-display { font-family: 'Playfair Display', serif; }
+.font-sans    { font-family: 'Inter', sans-serif; }
+.text-gold    { color: var(--gold); }
+.text-muted   { color: var(--muted); }
+.bg-gold      { background-color: var(--gold); }
+
+/* ---- Scrollbar --------------------------------------------- */
+::-webkit-scrollbar { width: 5px; }
+::-webkit-scrollbar-track { background: #080808; }
+::-webkit-scrollbar-thumb { background: #222; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #333; }
+
+/* ---- Selection --------------------------------------------- */
+::selection { background: rgba(224,189,58,0.25); }
+
+/* ---- Fade-in animation ------------------------------------- */
+.fade-in {
+  animation: fadeIn 0.7s ease-out both;
+}
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+/* ---- Hero rotating phrase ---------------------------------- */
+.hero-phrase {
+  transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.hero-phrase.fading {
+  opacity: 0;
+  transform: translateY(-6px);
+}
+
+/* ---- Story reading drop-cap -------------------------------- */
+.drop-cap::first-letter {
+  font-family: 'Playfair Display', serif;
+  font-size: 4.2rem;
+  float: left;
+  margin-right: 0.6rem;
+  line-height: 1;
+  color: var(--gold);
+  font-style: italic;
+}
+
+.story-content {
+  line-height: 1.9;
+  letter-spacing: 0.012em;
+}
+
+/* ---- Trigger warning badges -------------------------------- */
+.tw-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 3px 8px;
+  border-radius: 4px;
+  background: rgba(220, 38, 38, 0.1);
+  color: #f87171;
+  border: 1px solid rgba(220, 38, 38, 0.2);
+}
+
+/* ---- Reaction buttons -------------------------------------- */
+.reaction-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+  background: none;
+  border: none;
+  color: inherit;
+}
+.reaction-btn:hover { transform: scale(1.08); }
+.reaction-btn:active { transform: scale(0.96); }
+
+.reaction-icon {
+  width: 56px; height: 56px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.04);
+  display: flex; align-items: center; justify-content: center;
+  border: 1px solid rgba(255,255,255,0.06);
+  font-size: 22px;
+  transition: background 0.2s, border-color 0.2s;
+}
+.reaction-btn:hover .reaction-icon {
+  background: rgba(224,189,58,0.08);
+  border-color: rgba(224,189,58,0.3);
+}
+.reaction-btn span.count {
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  color: rgba(245,245,240,0.35);
+}
+
+/* ---- Heaviness indicators ---------------------------------- */
+.hw-green  { background: rgba(74,222,128,0.08);  color: #4ade80; border-color: rgba(74,222,128,0.2); }
+.hw-yellow { background: rgba(250,204,21,0.08);  color: #fbbf24; border-color: rgba(250,204,21,0.2); }
+.hw-orange { background: rgba(251,146,60,0.08);  color: #fb923c; border-color: rgba(251,146,60,0.2); }
+.hw-red    { background: rgba(248,113,113,0.08); color: #f87171; border-color: rgba(248,113,113,0.2); }
+
+.hw-dot {
+  display: inline-block;
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  margin-right: 6px;
+  flex-shrink: 0;
+}
+.hw-dot-green  { background: #4ade80; }
+.hw-dot-yellow { background: #fbbf24; }
+.hw-dot-orange { background: #fb923c; }
+.hw-dot-red    { background: #f87171; }
+
+/* ---- Crisis panel ----------------------------------------- */
+#crisis-btn {
+  position: fixed;
+  bottom: 28px; right: 28px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  background: var(--gold);
+  color: var(--bg);
+  border: none;
+  cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  z-index: 100;
+  box-shadow: 0 4px 24px rgba(224,189,58,0.25);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+#crisis-btn:hover {
+  transform: scale(1.07);
+  box-shadow: 0 6px 32px rgba(224,189,58,0.4);
+}
+
+#crisis-panel {
+  position: fixed;
+  top: 0; right: 0;
+  width: min(420px, 100vw);
+  height: 100vh;
+  background: #0a0a0a;
+  border-left: 1px solid var(--border);
+  z-index: 200;
+  overflow-y: auto;
+  transform: translateX(100%);
+  transition: transform 0.35s cubic-bezier(0.22,1,0.36,1);
+  padding: 32px 28px 60px;
+}
+#crisis-panel.open {
+  transform: translateX(0);
+}
+
+#crisis-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  z-index: 150;
+  display: none;
+}
+#crisis-overlay.open { display: block; }
+
+/* ---- AI generate panel ------------------------------------ */
+.ai-key-banner input { color: var(--ink); }
+
+/* ---- Moment of Reflection --------------------------------- */
+.reflection-textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.02);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 20px;
+  color: rgba(245,245,240,0.7);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.8;
+  min-height: 120px;
+  resize: none;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.reflection-textarea:focus {
+  border-color: rgba(224,189,58,0.3);
+}
+.reflection-textarea::placeholder { color: rgba(245,245,240,0.2); }
+
+/* ---- Search input ----------------------------------------- */
+.archive-search {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 12px 18px;
+  color: var(--ink);
+  font-family: 'Lora', serif;
+  font-size: 0.95rem;
+  outline: none;
+  width: 100%;
+  transition: border-color 0.2s;
+}
+.archive-search:focus { border-color: rgba(224,189,58,0.4); }
+.archive-search::placeholder { color: rgba(245,245,240,0.2); font-style: italic; }
+
+/* ---- Story form fields ------------------------------------ */
+.story-input, .story-textarea {
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 16px 20px;
+  color: rgba(245,245,240,0.85);
+  font-family: 'Lora', serif;
+  font-style: italic;
+  font-size: 1rem;
+  line-height: 1.7;
+  outline: none;
+  transition: border-color 0.2s;
+}
+.story-input:focus, .story-textarea:focus {
+  border-color: rgba(224,189,58,0.5);
+}
+.story-input::placeholder, .story-textarea::placeholder {
+  color: rgba(245,245,240,0.2);
+}
+.story-textarea {
+  min-height: 280px;
+  resize: vertical;
+}
+
+/* ---- Category chips --------------------------------------- */
+.cat-chip {
+  font-family: 'Inter', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 5px 12px;
+  border-radius: 999px;
+  border: 1px solid rgba(255,255,255,0.08);
+  background: rgba(255,255,255,0.04);
+  color: rgba(245,245,240,0.4);
+  cursor: pointer;
+  transition: all 0.15s;
+}
+.cat-chip:hover { background: rgba(255,255,255,0.08); color: rgba(245,245,240,0.8); }
+.cat-chip.active {
+  background: var(--gold);
+  color: var(--bg);
+  border-color: var(--gold);
+}
+
+/* ---- Story card ------------------------------------------- */
+.story-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 32px;
+  cursor: pointer;
+  transition: border-color 0.2s, transform 0.2s;
+  display: flex; flex-direction: column;
+  height: 100%;
+}
+.story-card:hover {
+  border-color: rgba(224,189,58,0.25);
+  transform: translateY(-2px);
+}
+
+/* ---- Reading progress bar --------------------------------- */
+#reading-progress {
+  position: fixed;
+  top: 80px; left: 0;
+  height: 2px;
+  background: var(--gold);
+  width: 0%;
+  z-index: 40;
+  transition: width 0.1s;
+}
+
+/* ---- Responsive layout helpers ---------------------------- */
+@media (max-width: 640px) {
+  .drop-cap::first-letter { font-size: 3rem; }
+  #crisis-panel { width: 100vw; }
+}

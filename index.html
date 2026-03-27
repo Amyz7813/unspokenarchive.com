@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="UnspokenArchive — A quiet, anonymous digital archive of honest human experiences. No tracking. No algorithms. Just stories.">
+  <title>UnspokenArchive | A Quiet Space for Honest Stories</title>
+
+  <!-- Tailwind CSS (CDN) -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: { gold: '#e0bd3a' },
+          fontFamily: {
+            display: ['"Playfair Display"', 'serif'],
+            serif:   ['"Lora"', 'serif'],
+            sans:    ['"Inter"', 'sans-serif']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Lora:ital,wght@0,400;1,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+
+  <!-- Custom styles -->
+  <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body class="bg-[#050505] text-[#f5f5f0] selection:bg-gold/20 min-h-screen">
+
+  <!-- ══════════════════════════════════════
+       Navigation
+  ══════════════════════════════════════ -->
+  <nav
+    class="fixed top-0 left-0 right-0 z-50 bg-[#050505]/85 backdrop-blur-md border-b border-white/5"
+    role="navigation"
+    aria-label="Main navigation"
+  >
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+
+      <!-- Logo -->
+      <a href="#/" class="flex items-center gap-2.5 group" aria-label="UnspokenArchive home">
+        <div class="w-7 h-7 rounded-full border border-gold/50 flex items-center justify-center group-hover:bg-gold/10 transition-colors">
+          <div class="w-2 h-2 rounded-full bg-gold"></div>
+        </div>
+        <span class="font-display text-xl tracking-tight text-gold italic">UnspokenArchive</span>
+      </a>
+
+      <!-- Desktop nav links -->
+      <div class="hidden md:flex items-center gap-8">
+        <a href="#/archive"     data-nav class="font-sans text-sm text-muted hover:text-gold transition-colors">Archive</a>
+        <a href="#/write"       data-nav class="font-sans text-sm text-muted hover:text-gold transition-colors">Write</a>
+        <a href="#/advice"      data-nav class="font-sans text-sm text-muted hover:text-gold transition-colors">Advice</a>
+        <a href="#/terminology" data-nav class="font-sans text-sm text-muted hover:text-gold transition-colors">Terminology</a>
+        <a href="#/crisis"      data-nav class="font-sans text-sm text-muted hover:text-gold transition-colors">Crisis</a>
+      </div>
+
+      <!-- Mobile menu button -->
+      <button
+        id="menu-toggle"
+        class="md:hidden text-white/50 p-2 rounded-lg hover:bg-white/5 transition-colors"
+        aria-label="Toggle menu"
+        aria-expanded="false"
+      >
+        <i data-lucide="menu" class="w-5 h-5"></i>
+      </button>
+    </div>
+
+    <!-- Mobile menu -->
+    <div
+      id="mobile-menu"
+      class="hidden md:hidden absolute top-20 left-0 right-0 bg-[#050505]/97 backdrop-blur-xl border-b border-white/5 z-40 p-8"
+      aria-hidden="true"
+    >
+      <nav class="space-y-6">
+        <a href="#/archive"     data-nav class="block font-display text-3xl italic text-white/70 hover:text-gold transition-colors">Archive</a>
+        <a href="#/write"       data-nav class="block font-display text-3xl italic text-white/70 hover:text-gold transition-colors">Write</a>
+        <a href="#/advice"      data-nav class="block font-display text-3xl italic text-white/70 hover:text-gold transition-colors">Advice</a>
+        <a href="#/terminology" data-nav class="block font-display text-3xl italic text-white/70 hover:text-gold transition-colors">Terminology</a>
+        <a href="#/crisis"      data-nav class="block font-display text-3xl italic text-white/70 hover:text-gold transition-colors">Crisis Support</a>
+        <a href="#/terms"       data-nav class="block font-sans text-sm text-white/25 hover:text-gold/60 transition-colors mt-6">Terms &amp; Standards</a>
+      </nav>
+      <p class="mt-10 font-sans text-[10px] uppercase tracking-[0.2em] text-white/15 italic">&ldquo;Your story matters.&rdquo;</p>
+    </div>
+  </nav>
+
+  <!-- ══════════════════════════════════════
+       Main content
+  ══════════════════════════════════════ -->
+  <main id="app-root" class="min-h-screen" aria-live="polite"></main>
+
+  <!-- ══════════════════════════════════════
+       Footer
+  ══════════════════════════════════════ -->
+  <footer class="border-t border-white/5 py-10 px-6">
+    <div class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-4">
+      <span class="font-display text-sm italic text-white/20">UnspokenArchive</span>
+      <div class="flex items-center gap-6 font-sans text-xs text-white/20">
+        <a href="#/terms" class="hover:text-gold/60 transition-colors">Terms &amp; Standards</a>
+        <a href="#/crisis" class="hover:text-gold/60 transition-colors">Crisis Resources</a>
+        <a href="mailto:helparchive@unspokenarchive.org" class="hover:text-gold/60 transition-colors">Contact</a>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ══════════════════════════════════════
+       Crisis button (fixed)
+  ══════════════════════════════════════ -->
+  <button
+    id="crisis-btn"
+    aria-label="Open crisis support resources"
+    title="Crisis Support"
+  >
+    <i data-lucide="heart-pulse" class="w-5 h-5"></i>
+  </button>
+
+  <!-- Crisis panel overlay -->
+  <div id="crisis-overlay" role="presentation"></div>
+
+  <!-- Crisis slide-in panel -->
+  <aside id="crisis-panel" role="complementary" aria-label="Crisis support resources" aria-hidden="true">
+    <div class="flex items-center justify-between mb-8">
+      <div>
+        <p class="font-sans text-[10px] uppercase tracking-widest text-white/25 mb-1">Immediate Help</p>
+        <h2 class="font-display text-2xl italic text-white/85">Crisis Resources</h2>
+      </div>
+      <button id="crisis-close" class="w-9 h-9 rounded-full bg-white/5 flex items-center justify-center hover:bg-white/10 text-white/40" aria-label="Close crisis panel">
+        <i data-lucide="x" class="w-4 h-4"></i>
+      </button>
+    </div>
+
+    <p class="font-sans text-sm text-white/40 mb-8 leading-relaxed">
+      If you are in immediate danger, please call your local emergency services first.
+      For emotional support, the lines below are free and available now.
+    </p>
+
+    <div id="crisis-panel-content" class="space-y-6"></div>
+
+    <div class="mt-10 pt-8 border-t border-white/5">
+      <p class="font-sans text-[10px] uppercase tracking-widest text-white/20 mb-4">International</p>
+      <div class="space-y-3">
+        <a href="https://www.iasp.info/resources/Crisis_Centres/" target="_blank" rel="noopener" class="block text-sm text-white/35 hover:text-gold/70 transition-colors font-sans">IASP Crisis Centres Directory ↗</a>
+        <a href="https://www.befrienders.org" target="_blank" rel="noopener" class="block text-sm text-white/35 hover:text-gold/70 transition-colors font-sans">Befrienders Worldwide ↗</a>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ══════════════════════════════════════
+       Toast notification
+  ══════════════════════════════════════ -->
+  <div
+    id="ua-toast"
+    class="fixed bottom-24 left-1/2 -translate-x-1/2 bg-[#1a1a1a] border border-white/10 text-white/70 font-sans text-xs px-5 py-3 rounded-full opacity-0 transition-opacity duration-300 z-[300] pointer-events-none"
+    aria-live="polite"
+    aria-atomic="true"
+  ></div>
+
+  <!-- ══════════════════════════════════════
+       Scripts — order matters:
+       1. data.js  (State, escHtml, constants)
+       2. ai.js    (AI object)
+       3. app.js   (render functions)
+       4. router.js (routes, binds load/hashchange)
+  ══════════════════════════════════════ -->
+  <script src="js/data.js"></script>
+  <script src="js/ai.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/router.js"></script>
+
+  <!-- Crisis panel initialisation -->
+  <script>
+    (function () {
+      const btn     = document.getElementById('crisis-btn');
+      const panel   = document.getElementById('crisis-panel');
+      const overlay = document.getElementById('crisis-overlay');
+      const close   = document.getElementById('crisis-close');
+      const content = document.getElementById('crisis-panel-content');
+
+      /* Populate panel with first 8 countries */
+      function populatePanel() {
+        if (!content || content.innerHTML) return;
+        const top = CRISIS_RESOURCES.slice(0, 8);
+        content.innerHTML = top.map(r => `
+          <div class="border-b border-white/5 pb-5">
+            <p class="font-sans font-bold text-sm text-white/60 mb-3">${r.country}</p>
+            ${r.lines.map(l => `
+              <div class="mb-2">
+                <p class="font-sans text-xs text-white/35">${l.name}</p>
+                <p class="font-sans font-bold text-gold text-base">${l.contact}</p>
+                <p class="font-sans text-[11px] text-white/20">${l.note}</p>
+              </div>
+            `).join('')}
+          </div>
+        `).join('');
+      }
+
+      function openPanel() {
+        populatePanel();
+        panel.classList.add('open');
+        overlay.classList.add('open');
+        panel.setAttribute('aria-hidden', 'false');
+        close.focus();
+      }
+
+      function closePanel() {
+        panel.classList.remove('open');
+        overlay.classList.remove('open');
+        panel.setAttribute('aria-hidden', 'true');
+        btn.focus();
+      }
+
+      btn.addEventListener('click', openPanel);
+      close.addEventListener('click', closePanel);
+      overlay.addEventListener('click', closePanel);
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && panel.classList.contains('open')) closePanel();
+      });
+
+      /* Also open from #/crisis hash navigation */
+      window.addEventListener('hashchange', () => {
+        if (window.location.hash === '#/crisis') openPanel();
+      });
+
+      if (window.lucide) lucide.createIcons();
+    })();
+  </script>
+</body>
+</html>
